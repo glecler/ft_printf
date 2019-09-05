@@ -6,7 +6,7 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 17:15:03 by glecler           #+#    #+#             */
-/*   Updated: 2019/09/02 19:02:23 by glecler          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:26:32 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ long long int	ft_pow(int base, int x)
 		return (base * ft_pow(base, x - 1));
 	else
 		return (1);
+}
+
+const char		*ft_end(const char *format)
+{
+	while (strchr2(*format, "% 01234.56789+-#hlL") == 1)
+		format++;
+	while (strchr2(*format, "diouxXpcs") == 1)
+		format++;
+	return (format);
 }

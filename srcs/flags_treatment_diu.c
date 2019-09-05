@@ -6,19 +6,11 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 15:33:28 by glecler           #+#    #+#             */
-/*   Updated: 2019/09/02 18:09:08 by glecler          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:28:25 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-t_flags	minus_flags(t_flags flags)
-{
-	flags.plus = 0;
-	flags.signe = 1;
-	flags.space = 0;
-	return (flags);
-}
 
 char	*ft_di(t_flags flags, char *nb)
 {
@@ -30,7 +22,7 @@ char	*ft_di(t_flags flags, char *nb)
 		flags = minus_flags(flags);
 	if (flags.zero == 1 && flags.precision > 0)
 		flags.zero = 0;
-	len = flags.plus - (*nb == '-') + (strlen(nb));
+	len = flags.plus - (*nb == '-') + (ft_strlen(nb));
 	mallocsize = (flags.width > len && flags.width >
 			flags.precision ? flags.width : len);
 	mallocsize = (flags.precision > mallocsize ? flags.precision : mallocsize);

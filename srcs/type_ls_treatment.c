@@ -6,7 +6,7 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 15:23:01 by glecler           #+#    #+#             */
-/*   Updated: 2019/09/02 18:56:15 by glecler          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:04:47 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_treat(t_flags flags, char type, va_list ap)
 
 	flags = flags_comp(flags, type);
 	if (strchr2(type, "di") == 1)
-		buff = ft_di(flags, ft_di_nb(flags, ap, type));
+		buff = ft_di(flags, ft_di_nb(flags, ap));
 	if (strchr2(type, "oxX") == 1)
 		buff = ft_oxx(flags, ft_ouxx_nb(flags, ap, type), type);
 	if (strchr2(type, "u") == 1)
@@ -42,39 +42,17 @@ char	*ft_treat(t_flags flags, char type, va_list ap)
 	return (buff);
 }
 
-/*
-	if (type == 'f')
-		buff = ft_float(flags, ft_float_nb(ap, flags));
-*/
-
-t_flags	flags_comp(t_flags flags, char type)
+char	*ft_di_nb(t_flags flags, va_list ap)
 {
-	if (strchr2(type, "oxX") == 1)
-	{
-		flags.space = 0;
-		flags.plus = 0;
-	}
-	if (flags.plus == 1)
-		flags.space = 0;
-	return (flags);
-}
-
-char	*ft_di_nb(t_flags flags, va_list ap, char type)
-{
-	long long int	lli;
-
 	if (flags.h == 1)
-	{
-		lli = (long long int)(va_arg(ap, int));
-		return (ltoa(lli, type));
-	}
+		return (ltoa((long long int)(va_arg(ap, int)), 0, 0));
 	if (flags.hh == 1)
-		return (ltoa(va_arg(ap, int), type));
+		return (ltoa(va_arg(ap, int), 0, 0));
 	if (flags.l == 1)
-		return (ltoa(va_arg(ap, long int), type));
+		return (ltoa(va_arg(ap, long int), 0, 0));
 	if (flags.ll == 1)
-		return (ltoa(va_arg(ap, long long int), type));
-	return (ltoa(va_arg(ap, int), type));
+		return (ltoa(va_arg(ap, long long int), 0, 0));
+	return (ltoa(va_arg(ap, int), 0, 0));
 }
 
 char	*ft_ouxx_nb(t_flags flags, va_list ap, char type)
@@ -82,16 +60,16 @@ char	*ft_ouxx_nb(t_flags flags, va_list ap, char type)
 	char *nb;
 
 	if (flags.h == 1)
-		return (nb = ltoa(va_arg(ap, int), type));
+		return (nb = u_ltoa(va_arg(ap, int), type, 0, 0));
 	if (flags.hh == 1)
-		return (nb = ltoa(va_arg(ap, int), type));
+		return (nb = u_ltoa(va_arg(ap, int), type, 0, 0));
 	if (flags.l == 1)
-		return (nb = ltoa(va_arg(ap, unsigned long int), type));
+		return (nb = u_ltoa(va_arg(ap, unsigned long int), type, 0, 0));
 	if (flags.ll == 1)
-		return (nb = ltoa(va_arg(ap, unsigned long long int), type));
+		return (nb = u_ltoa(va_arg(ap, unsigned long long int), type, 0, 0));
 	if (type == 'u')
-		nb = ltoa(va_arg(ap, unsigned int), type);
+		nb = u_ltoa(va_arg(ap, unsigned int), type, 0, 0);
 	else
-		nb = ltoa(va_arg(ap, int), type);
+		nb = u_ltoa(va_arg(ap, int), type, 0, 0);
 	return (nb);
 }

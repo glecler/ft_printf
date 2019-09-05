@@ -6,7 +6,7 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 18:47:48 by glecler           #+#    #+#             */
-/*   Updated: 2019/09/02 19:00:46 by glecler          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:28:52 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_s(char *str, t_flags flags)
 	int		len;
 
 	buff = NULL;
-	len = (flags.dot > 0 ? flags.precision : strlen(str));
+	len = (flags.dot > 0 ? flags.precision : ft_strlen(str));
 	mallocsize = (flags.width > len ? flags.width : len);
 	if (!(buff = ft_strnew(mallocsize)))
 		return (NULL);

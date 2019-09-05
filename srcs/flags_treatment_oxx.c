@@ -6,7 +6,7 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/16 09:10:11 by glecler           #+#    #+#             */
-/*   Updated: 2019/09/02 19:01:58 by glecler          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:28:37 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_oxx(t_flags flags, char *nb, char type)
 	char	*buff;
 
 	buff = NULL;
-	len = strlen(nb);
+	len = ft_strlen(nb);
 	flags.hash = hash_diff(type, len, flags.precision, flags.hash);
 	mallocsize = (flags.width > len && flags.width
 			> flags.precision ? flags.width : len);
