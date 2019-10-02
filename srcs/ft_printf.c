@@ -42,9 +42,9 @@ int		ft_read(const char *restrict format, va_list ap, int ret)
 			}
 			else
 			{
-				nb = ft_fetch(format, ap);
+				if (!(nb = ft_fetch(format, ap)))
+					return (0);
 				ret += ft_putstr(nb);
-				free(nb);
 				format = ft_end(format) - 1;
 			}
 		}

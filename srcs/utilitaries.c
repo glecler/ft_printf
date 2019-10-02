@@ -30,11 +30,13 @@ int				get_nb(long long int nb, int base)
 {
 	int i;
 
-	i = 1;
-	nb < 0 ? i++ : 0;
-	if (nb == 0)
-		i = 0;
-	while (nb / base != 0)
+	i = 0;
+	if (nb < 0)
+	{
+		i++;
+		nb = -1 * nb;
+	}
+	while (nb != 0)
 	{
 		nb = nb / base;
 		i++;
@@ -46,10 +48,8 @@ int				u_get_nb(unsigned long long int nb, int base)
 {
 	int	i;
 
-	i = 1;
-	if (nb == 0)
-		i = 0;
-	while (nb / base != 0)
+	i = 0;
+	while (nb != 0)
 	{
 		nb = nb / base;
 		i++;
@@ -59,15 +59,15 @@ int				u_get_nb(unsigned long long int nb, int base)
 
 char			*u_ltoa(unsigned long long int n, char type, int x, int i)
 {
-	int		base;
+	unsigned int		base;
 	char	*nb;
 
 	type == 'u' ? base = 10 : 0;
 	type == 'o' ? base = 8 : 0;
-	type == 'x' || type == 'X' ? base = 16 : 0;
+	(type == 'x' || type == 'X') ? base = 16 : 0;
 	if (!(nb = ft_strnew(u_get_nb(n, base))))
 		return (NULL);
-	while ((n / ft_pow(base, x) >= 10))
+	while ((n / ft_pow(base, x) >= base))
 		x++;
 	while (x >= 0)
 	{

@@ -26,7 +26,7 @@ char	*ft_di(t_flags flags, char *nb)
 	mallocsize = (flags.width > len && flags.width >
 			flags.precision ? flags.width : len);
 	mallocsize = (flags.precision > mallocsize ? flags.precision : mallocsize);
-	mallocsize += flags.space + flags.plus;
+	mallocsize += flags.space;
 	if (!(buff = ft_strnew(mallocsize)))
 		return (NULL);
 	if (flags.minus == 0)
@@ -38,7 +38,7 @@ char	*ft_di(t_flags flags, char *nb)
 
 char	*ft_minus_0(t_flags flags, char *nb, char *buff, long len)
 {
-	int		i;
+	int	i;
 	char	c;
 
 	i = 0;

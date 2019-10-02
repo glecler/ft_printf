@@ -22,9 +22,20 @@ t_flags	minus_flags(t_flags flags)
 
 t_flags	flags_comp(t_flags flags, char type)
 {
-	if (strchr2(type, "oxX") == 1)
-		;
 	if (flags.plus == 1)
 		flags.space = 0;
+	if (flags.minus == 1)
+		flags.zero = 0;
+	if (strchr2(type, "scip") == 1)
+	{
+		flags.zero = 0;
+		flags.plus = 0;
+		flags.space = 0;
+	}
+	if (strchr2(type, "uoxX") == 1)
+	{
+		flags.plus = 0;
+		flags.space = 0;
+	}
 	return (flags);
 }

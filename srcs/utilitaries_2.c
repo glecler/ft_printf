@@ -53,11 +53,19 @@ long long int	ft_pow(int base, int x)
 		return (1);
 }
 
+double	f_ft_pow(int base, int x)
+{
+	if (x != 0)
+		return (base * ft_pow(base, x - 1));
+	else
+		return (1);
+}
+
 const char		*ft_end(const char *format)
 {
-	while (strchr2(*format, "% 01234.56789+-#hlL") == 1)
+	while (strchr2(*format, "% 01234.56789+-#hlzL") == 1)
 		format++;
-	while (strchr2(*format, "diouxXpcs") == 1)
+	while (strchr2(*format, "diouxXpcsf") == 1)
 		format++;
 	return (format);
 }

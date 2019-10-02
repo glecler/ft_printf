@@ -57,6 +57,12 @@ t_flags	ft_get_flags(const char *restrict format, t_flags flags)
 	*format == '.' ? flags.dot = 1 : 0;
 	flags.precision = ft_get_precision(format);
 	flags.i += get_nb(flags.precision, 10) + (flags.dot);
+	format = (*format == '.' ? format + 1 : format);
+	while (*format >= '0' && *format <= '9' && get_nb(flags.precision, 10) == 0)
+	{
+		flags.i ++;
+		format++;
+	}
 	return (flags);
 }
 
@@ -77,6 +83,8 @@ t_flags	ft_get_ls(const char *format, t_flags flags)
 			flags.ll += 1;
 		if (*format == 'l' && flags.ll == 0)
 			flags.l += 1;
+		if (*format == 'L')
+			flags.L += 1;
 		flags.i++;
 		format++;
 	}

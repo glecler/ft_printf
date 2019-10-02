@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#include <stdio.h>
 int		hash_diff(char type, int len, int prec, int hash)
 {
 	if (hash == 0)

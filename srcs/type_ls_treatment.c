@@ -25,10 +25,15 @@ char	*ft_easier(char c)
 char	*ft_treat(t_flags flags, char type, va_list ap)
 {
 	char *buff;
+	char *nb;
 
+	nb = NULL;
 	flags = flags_comp(flags, type);
 	if (strchr2(type, "di") == 1)
-		buff = ft_di(flags, ft_di_nb(flags, ap));
+	{
+		nb = ft_di_nb(flags, ap);
+		buff = ft_di(flags, nb);
+	}
 	if (strchr2(type, "oxX") == 1)
 		buff = ft_oxx(flags, ft_ouxx_nb(flags, ap, type), type);
 	if (strchr2(type, "u") == 1)
@@ -39,13 +44,15 @@ char	*ft_treat(t_flags flags, char type, va_list ap)
 		buff = ft_s(va_arg(ap, char*), flags);
 	if (type == 'p')
 		buff = ft_oxx(flags, ft_fetch("%#llx", ap), type);
+	if (type == 'f')
+		buff = ft_floats(ft_f_nb(flags, ap), flags);
 	return (buff);
 }
 
 char	*ft_di_nb(t_flags flags, va_list ap)
 {
 	if (flags.h == 1)
-		return (ltoa((long long int)(va_arg(ap, int)), 0, 0));
+		return (ltoa((va_arg(ap, int)), 0, 0));
 	if (flags.hh == 1)
 		return (ltoa(va_arg(ap, int), 0, 0));
 	if (flags.l == 1)
@@ -60,7 +67,10 @@ char	*ft_ouxx_nb(t_flags flags, va_list ap, char type)
 	char *nb;
 
 	if (flags.h == 1)
-		return (nb = u_ltoa(va_arg(ap, int), type, 0, 0));
+	{
+		nb = u_ltoa(va_arg(ap, int), type, 0, 0);
+		return (nb);
+	}
 	if (flags.hh == 1)
 		return (nb = u_ltoa(va_arg(ap, int), type, 0, 0));
 	if (flags.l == 1)
