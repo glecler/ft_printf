@@ -12,14 +12,17 @@
 
 NAME 	= libftprintf.a
 SRC 	= ./srcs/ft_printf.c ./srcs/flags_finder.c ./srcs/type_ls_treatment.c \
-		  ./srcs/flags_treatment_oxx.c ./srcs/flags_treatment_diu.c \
-		  ./srcs/flags_treatment_s.c \
-		  ./srcs/utilitaries.c ./srcs/utilitaries_2.c ./srcs/utilitaries_3.c \
-		  ./srcs/error_mgmt.c
+	  ./srcs/flags_treatment_oxx.c ./srcs/flags_treatment_diu.c \
+	  ./srcs/flags_treatment_s.c ./srcs/utilitaries.c \
+	  ./srcs/flags_treatment_f.c \
+	  ./srcs/utilitaries_2.c ./srcs/utilitaries_3.c ./srcs/error_mgmt.c
 FLAGS 	= -Wall -Wextra -Werror
-CC 		= gcc
-
-OBJ = $(SRC:.c=.o)
+CC 	= gcc
+OBJ 	= ./ft_printf.o ./flags_finder.o ./type_ls_treatment.o \
+    	  ./flags_treatment_oxx.o ./flags_treatment_diu.o \
+    	  ./flags_treatment_s.o ./utilitaries.o \
+		  ./flags_treatment_f.o \
+    	  ./utilitaries_2.o ./utilitaries_3.o ./error_mgmt.o
 	CL=\x1b[35m
 	GREEN=\033[1;32m
 	RED=\033[1;31m
@@ -29,14 +32,14 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 test: all
-	@$(CC) $(NAME) test_ft_printf.c -o ft_printf
+	@$(CC) $(NAME) maintest.c -o ft_printf
 	@echo "$(GREEN)[✓]$(NC)$(CL) executable ft_printf built$(NC)"
 	@$(clean)
 
-$(NAME): $(OBJ)
+$(NAME): $(SRC)
 	@$(CC) -c $(FLAGS) $(SRC)
 	@ar rcs $(NAME) $(OBJ)
-	@rm -rf *.o 
+	@rm -rf $(OBJ) 
 	@echo "$(GREEN)[✓]$(NC)$(CL) lib $(NAME) built$(NC)"
 
 clean:
