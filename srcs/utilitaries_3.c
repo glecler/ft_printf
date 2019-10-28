@@ -6,13 +6,13 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 17:26:42 by glecler           #+#    #+#             */
-/*   Updated: 2019/09/04 17:31:34 by glecler          ###   ########.fr       */
+/*   Updated: 2019/10/19 13:01:14 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_strlen(char *str)
+int			ft_strlen(char *str)
 {
 	int i;
 
@@ -22,7 +22,7 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-int	f_get_nb(long double nb)
+int			f_get_nb(long double nb)
 {
 	int	i;
 
@@ -45,8 +45,8 @@ int	f_get_nb(long double nb)
 long double	part_ent(long double d)
 {
 	long double	part_en;
-	int	x;
-	int	i;
+	int			x;
+	int			i;
 
 	i = f_get_nb(d);
 	part_en = 0;
@@ -60,13 +60,13 @@ long double	part_ent(long double d)
 	return (part_en);
 }
 
-char    *i_ftoa(long double n, int i, char *nb, int precision)
+char		*i_ftoa(long double n, int i, char *nb, int precision)
 {
-    long double  ncpy;
-    int     x;
+	long double	ncpy;
+	int			x;
 
-    ncpy = n;
-    x = 0;
+	ncpy = n;
+	x = 0;
 	if (part_ent(n) == 0)
 		nb[i++] = '0';
 	while (ncpy >= 1)
@@ -74,7 +74,7 @@ char    *i_ftoa(long double n, int i, char *nb, int precision)
 		ncpy = ncpy / 10;
 		x++;
 	}
-	if (i > 0 && nb[0] != '-')
+	if ((i > 0 && nb[0] != '-') || (i > 1 && nb[0] == '-'))
 		x = (precision > x ? precision : x);
 	while (x > 0 && nb[i])
 	{
@@ -83,16 +83,16 @@ char    *i_ftoa(long double n, int i, char *nb, int precision)
 		x--;
 		i++;
 	}
-    return (nb);
+	return (nb);
 }
 
-char	*ftoa(long double n, int i, int precision)
+char		*ftoa(long double n, int i, int precision)
 {
-	char	*nb;
+	char		*nb;
 	long double	dec;
 
 	nb = NULL;
-	if (!(nb = ft_strnew(f_get_nb(n) + precision + (precision != 0))))
+	if (!(nb = ft_strnew(f_get_nb(n) + precision + (n < 0) + (precision != 0))))
 		return (NULL);
 	if (n < 0)
 	{
@@ -100,27 +100,16 @@ char	*ftoa(long double n, int i, int precision)
 		nb[i++] = '-';
 	}
 	dec = part_ent((((n - part_ent(n)) * ft_pow(10, precision + 1))) / 10);
-	if (((n * f_ft_pow(10, precision + 1)) - (part_ent(n * f_ft_pow(10, precision)) * 10)) >= 5 && precision > 0)
+	if (((n * f_ft_pow(10, precision + 1)) - (part_ent(n *
+		f_ft_pow(10, precision)) * 10)) >= 5 && precision > 0)
 		dec += 1;
-	if (((n * f_ft_pow(10, precision + 1)) - (part_ent(n * f_ft_pow(10, precision)) * 10)) >= 5 && precision == 0)
+	if (((n * f_ft_pow(10, precision + 1)) - (part_ent(n *
+		f_ft_pow(10, precision)) * 10)) >= 5 && precision == 0)
 		n += 1;
-	n = part_ent(n);
-	nb = i_ftoa(n, i, nb, precision);
-	i += f_get_nb(n);
+	nb = i_ftoa(part_ent(n), i, nb, precision);
+	i += f_get_nb(part_ent(n));
 	if (precision != 0)
 		nb[i] = '.';
-	i++;
-	nb = i_ftoa(dec, i, nb, precision);
+	nb = i_ftoa(dec, i + 1, nb, precision);
 	return (nb);
-}
-
-int		ft_c_in_str(char c, char *str)
-{
-	while (*str != '\0')
-	{
-		if (*str == c)
-			return (1);
-		str++;
-	}
-	return (0);
 }

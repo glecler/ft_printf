@@ -6,7 +6,7 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 14:03:28 by glecler           #+#    #+#             */
-/*   Updated: 2019/09/04 16:48:55 by glecler          ###   ########.fr       */
+/*   Updated: 2019/10/19 12:55:46 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int				u_get_nb(unsigned long long int nb, int base)
 
 char			*u_ltoa(unsigned long long int n, char type, int x, int i)
 {
-	unsigned int		base;
-	char	*nb;
+	unsigned int	base;
+	char			*nb;
 
 	type == 'u' ? base = 10 : 0;
 	type == 'o' ? base = 8 : 0;

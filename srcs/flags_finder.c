@@ -6,7 +6,7 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:36:47 by glecler           #+#    #+#             */
-/*   Updated: 2019/09/02 13:51:59 by glecler          ###   ########.fr       */
+/*   Updated: 2019/10/19 12:48:54 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_init_flags(t_flags *flags)
 	flags->h = 0;
 	flags->ll = 0;
 	flags->l = 0;
-	flags->L = 0;
+	flags->bigl = 0;
 	flags->hash = 0;
 	flags->zero = 0;
 	flags->minus = 0;
@@ -38,7 +38,6 @@ void	ft_init_flags(t_flags *flags)
 t_flags	ft_get_flags(const char *restrict format, t_flags flags)
 {
 	ft_init_flags(&flags);
-	format++;
 	while (*format && strchr2(*format, "#+0- ") == 1)
 	{
 		flags.hash += (*format == '#' ? 1 : 0);
@@ -49,8 +48,7 @@ t_flags	ft_get_flags(const char *restrict format, t_flags flags)
 		format++;
 	}
 	flags.i += flags.hash + flags.zero + flags.minus + flags.plus + flags.space;
-	if (flags.minus == 1)
-		flags.zero = 0;
+	flags.zero = (flags.minus == 1 ? 0 : flags.zero);
 	flags.width = ft_get_width(format);
 	flags.i += (get_nb(flags.width, 10));
 	format += (get_nb(flags.width, 10));
@@ -60,7 +58,7 @@ t_flags	ft_get_flags(const char *restrict format, t_flags flags)
 	format = (*format == '.' ? format + 1 : format);
 	while (*format >= '0' && *format <= '9' && get_nb(flags.precision, 10) == 0)
 	{
-		flags.i ++;
+		flags.i++;
 		format++;
 	}
 	return (flags);
@@ -84,7 +82,7 @@ t_flags	ft_get_ls(const char *format, t_flags flags)
 		if (*format == 'l' && flags.ll == 0)
 			flags.l += 1;
 		if (*format == 'L')
-			flags.L += 1;
+			flags.bigl += 1;
 		flags.i++;
 		format++;
 	}

@@ -6,7 +6,7 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 17:15:03 by glecler           #+#    #+#             */
-/*   Updated: 2019/09/04 17:26:32 by glecler          ###   ########.fr       */
+/*   Updated: 2019/10/19 12:54:11 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,18 @@ int				strchr2(int c, char *s)
 	return (0);
 }
 
-int				ft_putstr(char *str)
+int				ft_putstr(char *str, char const *format)
 {
-	int i;
+	int		i;
+	t_flags	flags;
 
 	i = 0;
+	ft_init_flags(&flags);
+	flags = ft_get_flags(format + 1, flags);
+	if (str[i] == '0' && flags.precision == 0 && flags.dot == 1)
+		return (0);
+	if (str[i] == 0)
+		return (1);
 	while (str[i] != '\0')
 	{
 		ft_putchar(str[i]);
@@ -46,14 +53,6 @@ int				ft_putchar(char c)
 }
 
 long long int	ft_pow(int base, int x)
-{
-	if (x != 0)
-		return (base * ft_pow(base, x - 1));
-	else
-		return (1);
-}
-
-double	f_ft_pow(int base, int x)
 {
 	if (x != 0)
 		return (base * ft_pow(base, x - 1));

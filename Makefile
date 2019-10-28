@@ -6,7 +6,7 @@
 #    By: glecler <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/28 16:00:31 by glecler           #+#    #+#              #
-#    Updated: 2019/09/04 17:31:19 by glecler          ###   ########.fr        #
+#    Updated: 2019/10/19 13:10:02 by glecler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,14 @@ NAME 	= libftprintf.a
 SRC 	= ./srcs/ft_printf.c ./srcs/flags_finder.c ./srcs/type_ls_treatment.c \
 	  ./srcs/flags_treatment_oxx.c ./srcs/flags_treatment_diu.c \
 	  ./srcs/flags_treatment_s.c ./srcs/utilitaries.c \
-	  ./srcs/flags_treatment_f.c \
+	  ./srcs/flags_treatment_f.c ./srcs/utilitaries_4.c \
 	  ./srcs/utilitaries_2.c ./srcs/utilitaries_3.c ./srcs/error_mgmt.c
 FLAGS 	= -Wall -Wextra -Werror
 CC 	= gcc
 OBJ 	= ./ft_printf.o ./flags_finder.o ./type_ls_treatment.o \
     	  ./flags_treatment_oxx.o ./flags_treatment_diu.o \
     	  ./flags_treatment_s.o ./utilitaries.o \
-		  ./flags_treatment_f.o \
+		  ./flags_treatment_f.o ./utilitaries_4.o \
     	  ./utilitaries_2.o ./utilitaries_3.o ./error_mgmt.o
 	CL=\x1b[35m
 	GREEN=\033[1;32m
@@ -30,11 +30,6 @@ OBJ 	= ./ft_printf.o ./flags_finder.o ./type_ls_treatment.o \
 	NC=\033[0m
 
 all: $(NAME)
-
-test: all
-	@$(CC) $(NAME) maintest.c -o ft_printf
-	@echo "$(GREEN)[✓]$(NC)$(CL) executable ft_printf built$(NC)"
-	@$(clean)
 
 $(NAME): $(SRC)
 	@$(CC) -c $(FLAGS) $(SRC)
