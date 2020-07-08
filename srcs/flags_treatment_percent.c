@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_mgmt.c                                       :+:      :+:    :+:   */
+/*   flags_treatment_percent.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/04 17:04:19 by glecler           #+#    #+#             */
-/*   Updated: 2019/09/04 17:29:37 by glecler          ###   ########.fr       */
+/*   Created: 2019/10/30 06:37:29 by glecler           #+#    #+#             */
+/*   Updated: 2019/10/30 06:38:02 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_flags	minus_flags(t_flags flags)
+char	*ft_percent(t_flags flags)
 {
-	flags.plus = 0;
-	flags.signe = 1;
-	flags.space = 0;
-	return (flags);
-}
+	char	*buff;
+	int		mallocsize;
+	int		i;
+	char	c;
 
-t_flags	flags_comp(t_flags flags, char type)
-{
-	if (flags.plus > 0)
-		flags.space = 0;
+	i = 0;
+	c = (flags.zero > 0 ? '0' : ' ');
+	mallocsize = (flags.width > 1 ? flags.width : 1);
+	if (!(buff = ft_strnew_gr(mallocsize)))
+		return (NULL);
 	if (flags.minus > 0)
-		flags.zero = 0;
-	if (strchr2(type, "scp") == 1)
 	{
-		flags.zero = 0;
-		flags.plus = 0;
-		flags.space = 0;
+		buff[i++] = '%';
+		while (flags.width-- > 1)
+			buff[i++] = c;
 	}
-	if (strchr2(type, "uoxX") == 1)
+	else
 	{
-		flags.plus = 0;
-		flags.space = 0;
+		while (flags.width-- > 1)
+			buff[i++] = c;
+		buff[i++] = '%';
 	}
-	return (flags);
+	return (buff);
 }

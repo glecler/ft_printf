@@ -6,7 +6,7 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:36:47 by glecler           #+#    #+#             */
-/*   Updated: 2019/10/19 12:48:54 by glecler          ###   ########.fr       */
+/*   Updated: 2019/10/30 06:39:00 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_init_flags(t_flags *flags)
 	flags->h = 0;
 	flags->ll = 0;
 	flags->l = 0;
+	flags->z = 0;
+	flags->j = 0;
 	flags->bigl = 0;
 	flags->hash = 0;
 	flags->zero = 0;
@@ -29,6 +31,7 @@ void	ft_init_flags(t_flags *flags)
 	flags->dot = 0;
 	flags->i = 0;
 	flags->signe = 0;
+	flags->type = 0;
 }
 
 /*
@@ -48,19 +51,12 @@ t_flags	ft_get_flags(const char *restrict format, t_flags flags)
 		format++;
 	}
 	flags.i += flags.hash + flags.zero + flags.minus + flags.plus + flags.space;
-	flags.zero = (flags.minus == 1 ? 0 : flags.zero);
 	flags.width = ft_get_width(format);
-	flags.i += (get_nb(flags.width, 10));
-	format += (get_nb(flags.width, 10));
+	flags.i += get_nb_digit(format);
+	format += get_nb_digit(format);
 	*format == '.' ? flags.dot = 1 : 0;
 	flags.precision = ft_get_precision(format);
-	flags.i += get_nb(flags.precision, 10) + (flags.dot);
-	format = (*format == '.' ? format + 1 : format);
-	while (*format >= '0' && *format <= '9' && get_nb(flags.precision, 10) == 0)
-	{
-		flags.i++;
-		format++;
-	}
+	flags.i += get_nb_digit(format + flags.dot) + flags.dot;
 	return (flags);
 }
 
@@ -71,7 +67,7 @@ t_flags	ft_get_flags(const char *restrict format, t_flags flags)
 t_flags	ft_get_ls(const char *format, t_flags flags)
 {
 	flags.i = 0;
-	while (*format && strchr2(*format, "hlL") == 1)
+	while (*format && strchr2(*format, "hlLjz") == 1)
 	{
 		if (*format == 'h' && *(format + 1) == 'h')
 			flags.hh += 1;
@@ -83,6 +79,10 @@ t_flags	ft_get_ls(const char *format, t_flags flags)
 			flags.l += 1;
 		if (*format == 'L')
 			flags.bigl += 1;
+		if (*format == 'j')
+			flags.j += 1;
+		if (*format == 'z')
+			flags.z += 1;
 		flags.i++;
 		format++;
 	}

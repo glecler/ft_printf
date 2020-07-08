@@ -6,7 +6,7 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 18:47:48 by glecler           #+#    #+#             */
-/*   Updated: 2019/10/19 12:50:38 by glecler          ###   ########.fr       */
+/*   Updated: 2019/10/30 05:49:18 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_easier(char c)
 {
 	char *str;
 
-	if (!(str = ft_strnew(1)))
+	if (!(str = ft_strnew_gr(1)))
 		return (NULL);
 	*str = c;
 	return (str);
@@ -28,7 +28,9 @@ char	*ft_strdup(char *str)
 	int		i;
 
 	i = 0;
-	if (!(str_dup = ft_strnew(ft_strlen(str))))
+	if (!(str))
+		return (NULL);
+	if (!(str_dup = ft_strnew_gr(ft_strlen(str))))
 		return (NULL);
 	while (str[i])
 	{
@@ -45,12 +47,12 @@ char	*ft_minus_1_s(t_flags flags, char *str, char *buff, int len)
 
 	i = 0;
 	c = (flags.zero == 0 ? ' ' : '0');
-	while (len-- > 0 && buff[i] && str[i])
+	while (len-- > 0)
 	{
 		buff[i] = str[i];
 		i++;
 	}
-	while (flags.width - i > 0 && buff[i])
+	while (flags.width - i > 0)
 		buff[i++] = c;
 	return (buff);
 }
@@ -80,12 +82,14 @@ char	*ft_s(char *str, t_flags flags)
 
 	buff = NULL;
 	if (!(str))
-		return (ft_s("(null)", flags));
-	len = (flags.dot > 0 ? flags.precision : ft_strlen(str));
+		str = ft_strdup("(null)");
+	len = (flags.dot > 0 && flags.precision < ft_strlen(str) ?
+		flags.precision : ft_strlen(str));
+	len = (flags.type == 'c' ? 1 : len);
 	mallocsize = (flags.width > len ? flags.width : len);
-	if (!(buff = ft_strnew(mallocsize)))
+	if (!(buff = ft_strnew_gr(mallocsize)))
 		return (NULL);
-	if (flags.minus == 1)
+	if (flags.minus > 0)
 		buff = ft_minus_1_s(flags, str, buff, len);
 	else
 		buff = ft_minus_0_s(flags, str, buff, len);

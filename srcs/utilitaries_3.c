@@ -92,7 +92,7 @@ char		*ftoa(long double n, int i, int precision)
 	long double	dec;
 
 	nb = NULL;
-	if (!(nb = ft_strnew(f_get_nb(n) + precision + (n < 0) + (precision != 0))))
+	if (!(nb = ft_strnew_gr(f_get_nb(n) + precision + (precision != 0))))
 		return (NULL);
 	if (n < 0)
 	{

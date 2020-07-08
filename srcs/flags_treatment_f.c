@@ -6,7 +6,7 @@
 /*   By: glecler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 12:56:11 by glecler           #+#    #+#             */
-/*   Updated: 2019/10/19 12:56:13 by glecler          ###   ########.fr       */
+/*   Updated: 2019/10/30 06:36:12 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ char	*ft_floats(char *nb, t_flags flags)
 		flags = minus_flags(flags);
 	if (flags.dot == 0 && flags.precision == 0)
 		flags.precision = 6;
-	len = ft_strlen(nb) + (flags.hash > 0 && flags.precision == 0) + flags.plus;
+	len = ft_strlen(nb) + (flags.hash > 0 && flags.precision == 0)
+		+ (flags.plus > 0);
 	mallocsize = (flags.width > len ? flags.width : len);
-	if (!(buff = ft_strnew(mallocsize)))
+	if (!(buff = ft_strnew_gr(mallocsize)))
 		return (NULL);
 	if (flags.minus == 0)
 		buff = ft_minus_0_f(flags, nb, buff, len);

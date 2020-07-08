@@ -34,19 +34,11 @@ int		ft_read(const char *restrict format, va_list ap, int ret)
 			ret += ft_putchar(*format);
 		if (*format == '%')
 		{
-			if (*(format + 1) == '%')
-			{
-				format++;
-				ret += ft_putchar('%');
-			}
-			else
-			{
-				if (!(buff = ft_fetch(format, ap)))
-					return (-1);
-				ret += ft_putstr(buff, format);
-				free(buff);
-				format = ft_end(format) - 1;
-			}
+			if (!(buff = ft_fetch(format, ap)))
+				return (-1);
+			ret += ft_putstr_gr(buff, format);
+			free(buff);
+			format = ft_end(format) - 1;
 		}
 		format++;
 	}
@@ -64,5 +56,6 @@ char	*ft_fetch(const char *restrict format, va_list ap)
 	flags = ft_get_ls(format, flags);
 	format += flags.i;
 	type = *format;
+	flags.type = *format;
 	return (ft_treat(flags, type, ap));
 }

@@ -15,14 +15,16 @@ SRC 	= ./srcs/ft_printf.c ./srcs/flags_finder.c ./srcs/type_ls_treatment.c \
 	  ./srcs/flags_treatment_oxx.c ./srcs/flags_treatment_diu.c \
 	  ./srcs/flags_treatment_s.c ./srcs/utilitaries.c \
 	  ./srcs/flags_treatment_f.c ./srcs/utilitaries_4.c \
-	  ./srcs/utilitaries_2.c ./srcs/utilitaries_3.c ./srcs/error_mgmt.c
+	  ./srcs/utilitaries_2.c ./srcs/utilitaries_3.c ./srcs/error_mgmt.c \
+	  ./srcs/flags_treatment_percent.c
 FLAGS 	= -Wall -Wextra -Werror
 CC 	= gcc
 OBJ 	= ./ft_printf.o ./flags_finder.o ./type_ls_treatment.o \
     	  ./flags_treatment_oxx.o ./flags_treatment_diu.o \
     	  ./flags_treatment_s.o ./utilitaries.o \
 		  ./flags_treatment_f.o ./utilitaries_4.o \
-    	  ./utilitaries_2.o ./utilitaries_3.o ./error_mgmt.o
+    	  ./utilitaries_2.o ./utilitaries_3.o ./error_mgmt.o \
+		  flags_treatment_percent.o
 	CL=\x1b[35m
 	GREEN=\033[1;32m
 	RED=\033[1;31m

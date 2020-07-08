@@ -6,7 +6,7 @@
 /*   By: ravernhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:00:20 by ravernhe          #+#    #+#             */
-/*   Updated: 2019/10/19 13:57:28 by glecler          ###   ########.fr       */
+/*   Updated: 2019/10/30 05:48:22 by glecler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef	struct	s_flags
 	int			h;
 	int			ll;
 	int			l;
+	int			j;
+	int			z;
 	int			bigl;
 	int			hash;
 	int			zero;
@@ -46,6 +48,7 @@ typedef	struct	s_flags
 	int			i;
 	int			signe;
 	int			dot;
+	char		type;
 }				t_flags;
 
 /*
@@ -131,7 +134,7 @@ t_flags			flags_comp(t_flags flags, char type);
 
 char			*ltoa(long long int n, int x, int i);
 char			*u_ltoa(unsigned long long int n, char type, int x, int i);
-char			*ft_strnew(long i);
+char			*ft_strnew_gr(long i);
 int				get_nb(long long int nb, int base);
 int				u_get_nb(unsigned long long int nb, int base);
 
@@ -140,7 +143,7 @@ int				u_get_nb(unsigned long long int nb, int base);
 */
 
 int				ft_putchar(char c);
-int				ft_putstr(char *str, char const *format);
+int				ft_putstr_gr(char *str, char const *format);
 int				strchr2(int c, char *s);
 const char		*ft_end(const char *format);
 long long int	ft_pow(int base, int x);
@@ -159,6 +162,10 @@ long double		part_ent(long double d);
 ** utilitaries_4.c
 */
 
+int				get_nb_digit(const char *str);
+char			*ft_zero(char *str);
 double			f_ft_pow(int base, int x);
+char			*ft_percent(t_flags flags);
+int				hash_diff(char type, int len, int prec, int hash);
 
 #endif

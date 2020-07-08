@@ -26,19 +26,27 @@ int				strchr2(int c, char *s)
 	return (0);
 }
 
-int				ft_putstr(char *str, char const *format)
+int				ft_putstr_gr(char *str, char const *format)
 {
 	int		i;
+	char	type;
 	t_flags	flags;
 
 	i = 0;
 	ft_init_flags(&flags);
 	flags = ft_get_flags(format + 1, flags);
-	if (str[i] == '0' && flags.precision == 0 && flags.dot == 1)
-		return (0);
+	format += flags.i + 1;
+	flags = ft_get_ls(format, flags);
+	format += flags.i;
+	type = *format;
+	if (str[i] == '\0' && type == 'c')
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
 	if (str[i] == 0)
-		return (1);
-	while (str[i] != '\0')
+		return (i);
+	while (str[i])
 	{
 		ft_putchar(str[i]);
 		i++;
@@ -62,9 +70,11 @@ long long int	ft_pow(int base, int x)
 
 const char		*ft_end(const char *format)
 {
-	while (strchr2(*format, "% 01234.56789+-#hlzL") == 1)
+	if (*format == '%')
 		format++;
-	while (strchr2(*format, "diouxXpcsf") == 1)
+	while (strchr2(*format, " 01234.56789+-#hlzLj") == 1)
+		format++;
+	if (strchr2(*format, "%diouxXpcsf") == 1)
 		format++;
 	return (format);
 }
