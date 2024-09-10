@@ -41,12 +41,18 @@ The `ft_printf` function supports the following features:
 
 - No internal buffer management as found in the standard library's `printf`.
 
-## Installation
+## How to use it
 
-To include `ft_printf` in your project
+Run make to compile the library and include the header in your file.
 
 ```bash
-make
+> make
+[✓] lib libftprintf.a built
+```
+If you want to try the tests included  in the main :
+
+```bash
+> gcc -Wall -Wextra -Werror -o test_ft_printf main.c -L. -lftprintf
 ```
 
 ## Usage
