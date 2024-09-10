@@ -1,7 +1,3 @@
-Here's a sample `README.md` for your `ft_printf` project based on the instructions you followed:
-
----
-
 # ft_printf
 
 ## Project Overview
