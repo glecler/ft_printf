@@ -43,10 +43,10 @@ The `ft_printf` function supports the following features:
 
 ## Installation
 
-To include `ft_printf` in your project, simply compile the source files along with your program:
+To include `ft_printf` in your project
 
 ```bash
-gcc -Wall -Wextra -Werror -o my_program my_program.c ft_printf.c
+make
 ```
 
 ## Usage
