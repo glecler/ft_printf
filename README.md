@@ -54,6 +54,7 @@ If you want to try the tests included  in the main :
 ```bash
 > gcc -Wall -Wextra -Werror -o test_ft_printf main.c -L. -lftprintf
 ```
+then run ./test_ft_printf
 
 ## Usage
 
