@@ -95,9 +95,6 @@ char	*ft_0_oxx_two(t_flags flags, char *nb, char *buff, int len)
 
 char	*ft_minus_0_oxx(t_flags flags, char *nb, char *buff, int len)
 {
-	int		i;
-
-	i = 0;
 	if (flags.dot == 1)
 		flags.zero = 0;
 	if ((flags.width > (flags.precision
